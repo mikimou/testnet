@@ -10,7 +10,7 @@ HOST = '127.0.0.1'
 PORT = 65432
 
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-    s.bind((socket.gethostbyname(socket.gethostname), PORT))
+    s.bind((socket.gethostbyname(socket.gethostname()), PORT))
     s.listen()
 
     while True:
