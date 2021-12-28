@@ -14,11 +14,11 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     s.listen()
     conn, addr = s.accept()
     with conn:
-        try:
-            while True:
+        while True:
+            try:
                 data = conn.recv(1024)
                 tun.write(data)
                 if not data:
                     break
-        except KeyboardInterrupt:
-            tun.close()
+            except KeyboardInterrupt:
+                tun.close()
