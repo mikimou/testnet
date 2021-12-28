@@ -13,12 +13,12 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     s.bind((HOST, PORT))
     s.listen()
     conn, addr = s.accept()
-    try:
-        with conn:
+    with conn:
+        try:
             while True:
                 data = conn.recv(1024)
                 tun.write(data)
                 if not data:
                     break
-    except KeyboardInterrupt:
-        tun.close()
+        except KeyboardInterrupt:
+            tun.close()
