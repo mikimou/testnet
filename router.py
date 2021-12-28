@@ -9,9 +9,9 @@ tun.config(ip="192.168.99.1", mask="255.255.255.0")
 HOST = '10.0.157.101' # (socket.gethostbyname(socket.gethostname())
 PORT = 65432
 
-s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-s.bind((HOST, PORT))
-s.listen()
+with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+    s.bind((HOST, PORT))
+    s.listen()
 
 try:
     while True:
