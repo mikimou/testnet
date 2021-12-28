@@ -12,9 +12,13 @@ PORT = 65432
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     s.bind((HOST, PORT))
     s.listen()
-    while True:
-        conn, addr = s.accept()
-        data = conn.recv(1024)
-        tun.write(data)
-        if not data:
-            break    
+    conn, addr = s.accept()
+    try:
+        with conn:
+            while True:
+                data = conn.recv(1024)
+                tun.write(data)
+                if not data:
+                    break
+    except KeyboardInterrupt:
+        tun.close()
