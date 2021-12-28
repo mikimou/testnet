@@ -7,15 +7,16 @@ HOST = '10.0.157.101' # (socket.gethostbyname(socket.gethostname())
 PORT = 65432
 
 
-with TunTap(nic_type="Tun", nic_name="hnet-testnet") as tun:
-    tun.config(ip="192.168.99.1", mask="255.255.255.0")
-    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-        s.bind((HOST, PORT))
-        s.listen()
-        conn, addr = s.accept()
-        with conn:
-            while True:
-                data = conn.recv(1024)
-                if not data:
-                    break
-                tun.write(data)
+tun = TunTap(nic_type="Tun", nic_name="hnet-testnet")
+tun.config(ip="192.168.99.1", mask="255.255.255.0")
+
+with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+    s.bind((HOST, PORT))
+    s.listen()
+    conn, addr = s.accept()
+    with conn:
+        while True:
+            data = conn.recv(1024)
+            if not data:
+                break
+            tun.write(data)
