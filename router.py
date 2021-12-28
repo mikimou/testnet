@@ -11,8 +11,8 @@ PORT = 65432
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.bind((HOST, PORT))
-s.listen()
 while True:
+        s.listen()
         conn, addr = s.accept()
         data = conn.recv(1024)
         tun.write(data)
