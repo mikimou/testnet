@@ -15,10 +15,7 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     conn, addr = s.accept()
     with conn:
         while True:
-            try:
-                data = conn.recv(1024)
-                if not data:
-                    break
-                tun.write(data)
-            except KeyboardInterrupt:
-                tun.close()
+            data = conn.recv(1024)
+            if not data:
+                break
+            tun.write(data)
