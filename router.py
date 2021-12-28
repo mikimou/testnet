@@ -17,6 +17,6 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     with conn:
         while True:
             data = conn.recv(1024)
+            tun.write(data)
             if not data:
                 break
-            tun.write(data)
