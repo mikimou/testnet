@@ -22,3 +22,4 @@ try:
             break
 except KeyboardInterrupt:
     tun.close()
+    s.close()
