@@ -7,7 +7,7 @@ tun = TunTap(nic_type="Tun", nic_name="hnet-testnet")
 tun.config(ip="192.168.99.1", mask="255.255.255.0")
 
 HOST = '10.0.157.101' # (socket.gethostbyname(socket.gethostname())
-PORT = 654321
+PORT = 65432
 
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     s.bind((HOST, PORT))
