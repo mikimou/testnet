@@ -15,7 +15,7 @@ tun.config(ip="192.168.99.1", mask="255.255.255.0")
 try:
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         s.bind((HOST, PORT))
-        s.listen()
+        #s.listen()
         while True:
             conn, addr = s.accept()
             with conn:
