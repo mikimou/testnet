@@ -1,7 +1,5 @@
 #!/usr/bin/env python3
 
-from logging import exception
-from os import kill
 from tuntap import TunTap
 import socket
 
@@ -35,7 +33,7 @@ def udp_handler():
             s.bind((HOST, PORT))
             while True:
                 data, addr = s.recvfrom(4096)
-                print(repr(data))
+                print(data)
                 tun.write(data)
                 #if not data:
                 #    break
