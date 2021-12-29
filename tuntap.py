@@ -1,8 +1,3 @@
-'''
-Created on 2018年5月3日
-
-@author: heguofeng
-'''
 import unittest
 import struct
 
