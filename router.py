@@ -32,11 +32,9 @@ def udp_handler():
         with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as s:
             s.bind((HOST, PORT))
             while True:
-                data, addr = s.recvfrom(4096)
+                data, addr = s.recvfrom(64)
                 print(data)
                 tun.write(data)
-                #if not data:
-                #    break
                 #s.sendto(data, ("178.41.16.171", PORT))
     except KeyboardInterrupt:
         tun.close()
