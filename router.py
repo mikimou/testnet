@@ -37,9 +37,9 @@ def udp_handler():
                 data, addr = s.recvfrom(1024)
                 print(repr(data))
                 tun.write(data)
-                if not data:
-                    break
-                s.sendto(data, ("178.41.16.171", PORT))
+                #if not data:
+                #    break
+                #s.sendto(data, ("178.41.16.171", PORT))
     except KeyboardInterrupt:
         tun.close()
 
