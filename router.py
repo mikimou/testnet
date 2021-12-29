@@ -2,13 +2,33 @@
 
 from tuntap import TunTap
 import socket
+import sys
+
+# -------------PARAMS-------------- #
 
 HOST = '10.0.157.101' # (socket.gethostbyname(socket.gethostname())
 PORT = 65432
+NIC_NAME = "hnet-testnet"
+IFACE_IP = "192.168.99.1" # Default hnet tun/tap local ip
 
-tun = TunTap(nic_type="Tun", nic_name="hnet-testnet")
-tun.config(ip="192.168.99.1", mask="255.255.255.0")
+# --------------------------------- #
 
+
+if sys.platform.startswith("win"):
+    sys.exit()
+else:
+    pass
+
+# Init tuntap for tunnel
+tun = TunTap(nic_type="Tun", nic_name=NIC_NAME)
+tun.config(ip=IFACE_IP, mask="255.255.255.0")
+
+# Packet stream buffering
+def buffer():
+    pass
+
+
+# Tcp tunnel
 def tcp_handler():
     try:
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
@@ -26,6 +46,7 @@ def tcp_handler():
     except KeyboardInterrupt:
         tun.close()
 
+# Udp tunnel
 def udp_handler():
     try:
         with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as s:
