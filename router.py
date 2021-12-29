@@ -32,7 +32,7 @@ def udp_handler():
         with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as s:
             s.bind((HOST, PORT))
             while True:
-                data, addr = s.recvfrom(64)
+                data, addr = s.recvfrom(8)
                 print(data)
                 tun.write(data)
                 #s.sendto(data, ("178.41.16.171", PORT))
