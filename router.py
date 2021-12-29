@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from tuntap import TunTap
+from . import TunTap
 import socket
 
 HOST = '10.0.157.101' # (socket.gethostbyname(socket.gethostname())
