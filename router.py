@@ -34,7 +34,7 @@ def udp_handler():
         with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as s:
             s.bind((HOST, PORT))
             while True:
-                data, addr = s.recvfrom(1024)
+                data, addr = s.recvfrom(4096)
                 print(repr(data))
                 tun.write(data)
                 #if not data:
