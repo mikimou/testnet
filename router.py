@@ -41,3 +41,5 @@ def udp_handler():
                 s.sendto(data, "178.41.16.171", PORT)
     except KeyboardInterrupt:
         tun.close()
+
+udp_handler()
