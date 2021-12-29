@@ -55,22 +55,7 @@ class Packet(object):
     def wrap(self,payload,protocol,dst_ip,src_ip):
         return None
 
-def TunTap(nic_type,nic_name=None):
-    '''
-    TunTap to init a device , after init, you should
-    input:
-        nic_type:  must be "Tun" or "Tap"
-        nic_name:  device name, default is None,
-                    on Linux system if None will auto generate,can be obtained by tap.name
-                    else will reuse the name of given
-                    it is no use on Windows
-
-    return :
-        Tap if linux, WinTap if Windows
-
-    after tap create, can be config(ip,mask),then canbe read or write ,please refer
-
-    '''
+def TunTap(nic_type,nic_name=None):    
     if not sys.platform.startswith("win"):
         tap = Tap(nic_type,nic_name)
     else:
@@ -79,10 +64,6 @@ def TunTap(nic_type,nic_name=None):
     return tap
 
 class Tap(object):
-    '''
-    Linux Tap
-    please use TunTap(nic_type,nic_name) ,it will invoke this class if on linux
-    '''
     def __init__(self,nic_type,nic_name=None):
         self.nic_type = nic_type
         self.name = nic_name
@@ -151,20 +132,6 @@ class Tap(object):
         return int(maskbits)
 
     def config(self,ip,mask,gateway="0.0.0.0"):
-        '''
-        config device's ip and mask
-
-        input:
-            ip:  ipaddress string, such as "192.168.1.5"
-            mask: netmask string, such as "255.255.255.0"
-            gateway: it is not used in this version
-
-        return :
-            None  if failure
-            self  if success
-
-        after tap configed,then canbe read or write ,please refer
-        '''
         self.ip = ip
         self.mask = mask
         self.gateway = gateway
@@ -179,18 +146,6 @@ class Tap(object):
         return  self
 
     def close(self):
-
-        '''
-        close device
-
-        input:
-            None
-
-        return :
-            None
-
-        '''
-
         self.quitting = False
         # print(self.name)
         os.close(self.handle)
@@ -206,16 +161,6 @@ class Tap(object):
         pass
 
     def read(self,size=1522):
-        '''
-        read device data with given size
-
-        input:
-            size:  read max size , int . such as size = 1500
-
-        return :
-            bytes:
-
-        '''
         self.read_lock.acquire()
         data = os.read(self.handle,size)
         self.read_lock.release()
@@ -223,16 +168,6 @@ class Tap(object):
         pass
 
     def write(self,data):
-        '''
-        write data to device
-
-        input:
-            data:  byte[] . such as data = b'\x00'*100
-
-        return :
-            int:  writed bytes
-
-        '''
         result = 0
         self.write_lock.acquire()
         try:
@@ -244,11 +179,6 @@ class Tap(object):
 
 
 class WinTap(Tap):
-    '''
-    Windows Tap
-    please use TunTap(nic_type,nic_name) ,it will invoke this class if on windows
-    nic_name is useless on windows
-    '''
     def __init__(self,nic_type):
         super().__init__(nic_type)
         self.component_id = "tap0901"

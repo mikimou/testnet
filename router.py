@@ -13,20 +13,22 @@ IFACE_IP = "192.168.99.1" # Default hnet tun/tap local ip
 
 # --------------------------------- #
 
-
+# tuntap check for win os
 if sys.platform.startswith("win"):
-    sys.exit()
+    tunTapAllow = False
+else:
+    tunTapAllow = True
+
+# Init tuntap for tunnel
+if tunTapAllow:
+    tun = TunTap(nic_type="Tun", nic_name=NIC_NAME)
+    tun.config(ip=IFACE_IP, mask="255.255.255.0")
 else:
     pass
 
-# Init tuntap for tunnel
-tun = TunTap(nic_type="Tun", nic_name=NIC_NAME)
-tun.config(ip=IFACE_IP, mask="255.255.255.0")
-
 # Packet stream buffering
-def buffer():
+def hBuffer():
     pass
-
 
 # Tcp tunnel
 def tcp_handler():
@@ -39,7 +41,8 @@ def tcp_handler():
                 with conn:
                         while True:
                             data = conn.recv(1024)
-                            tun.write(data)
+                            if tunTapAllow:
+                                tun.write(data)
                             if not data:
                                 break
                             conn.sendall(data)
@@ -54,7 +57,8 @@ def udp_handler():
             while True:
                 data, addr = s.recvfrom(8)
                 print(data)
-                tun.write(data)
+                if tunTapAllow:
+                    tun.write(data)
                 #s.sendto(data, ("178.41.16.171", PORT))
     except KeyboardInterrupt:
         tun.close()
