@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 
-from . import TunTap
+from . import tuntap
 import socket
 
 HOST = '10.0.157.101' # (socket.gethostbyname(socket.gethostname())
 PORT = 65432
-
+TunTap = tuntap.TunTap
 
 tun = TunTap(nic_type="Tun", nic_name="hnet-testnet")
 tun.config(ip="192.168.99.1", mask="255.255.255.0")
