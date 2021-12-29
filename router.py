@@ -35,6 +35,7 @@ def udp_handler():
             s.bind((HOST, PORT))
             while True:
                 data, addr = s.recvfrom(1024)
+                print(repr(data))
                 tun.write(data)
                 if not data:
                     break
