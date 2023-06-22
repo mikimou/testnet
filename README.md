@@ -1,4 +1,4 @@
-# testnet
+# testnet (discontinued)
 
 Author @mikimou
 
