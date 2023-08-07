@@ -6,10 +6,10 @@ import sys
 
 # -------------PARAMS-------------- #
 
-HOST = '10.0.157.101' # (socket.gethostbyname(socket.gethostname())
+HOST = '' # (socket.gethostbyname(socket.gethostname())
 PORT = 65432
 NIC_NAME = "hnet-testnet"
-IFACE_IP = "192.168.99.1" # Default hnet tun/tap local ip
+IFACE_IP = "" # Default hnet tun/tap local ip
 
 # --------------------------------- #
 
