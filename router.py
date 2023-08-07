@@ -59,7 +59,7 @@ def udp_handler():
                 print(data)
                 if tunTapAllow:
                     tun.write(data)
-                #s.sendto(data, ("178.41.16.171", PORT))
+                #s.sendto(data, ("", PORT))
     except KeyboardInterrupt:
         tun.close()
 
